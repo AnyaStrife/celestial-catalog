@@ -5,7 +5,7 @@ import { router } from "./routes";
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
 
-// Transforme le corps JSON des requêtes en objet JavaScript (req.body).
+// Transforme le corps JSON des requêtes en objet JavaScript
 app.use(express.json());
 
 // Toutes les routes du CRUD sont préfixées par /api/celestial-objects.

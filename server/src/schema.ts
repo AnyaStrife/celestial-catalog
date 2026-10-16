@@ -21,5 +21,5 @@ export const celestialObjectSchema = z.object({
   observed: z.boolean().default(false),
 });
 
-// Le type TypeScript est déduit automatiquement du schéma : une seule source de vérité.
+// Le type TypeScript est déduit automatiquement du schéma
 export type CelestialObjectInput = z.infer<typeof celestialObjectSchema>;

@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:3001/api/celestial-objects
+
+### Lister tous les objets
+GET {{baseUrl}}
+
+### Lire un objet
+GET {{baseUrl}}/1
+
+### Créer un objet
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Jupiter",
+  "type": "planet",
+  "constellation": null,
+  "distanceLightYears": 0.00008,
+  "observed": true
+}
+
+### Modifier un objet
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+  "name": "Bételgeuse",
+  "type": "star",
+  "constellation": "Orion",
+  "distanceLightYears": 550,
+  "observed": true
+}
+
+### Supprimer un objet
+DELETE {{baseUrl}}/2
+
+### Erreur attendue : données invalides (400)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{ "name": "", "type": "comet", "distanceLightYears": -5 }
+
+### Erreur attendue : objet introuvable (404)
+GET {{baseUrl}}/9999

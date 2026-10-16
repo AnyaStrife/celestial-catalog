@@ -1,7 +1,7 @@
 import { db } from "./db";
 import type { CelestialObjectInput } from "./schema";
 
-// Une ligne telle qu'elle est stockée en base (noms en snake_case, booléen en 0/1).
+// Une ligne telle qu'elle est stockée en base
 type Row = {
   id: number;
   name: string;

@@ -5,7 +5,6 @@ import * as repository from "./repository";
 
 export const router = Router();
 
-// Lit l'id dans l'URL ; renvoie null s'il n'est pas un entier positif.
 function parseId(req: Request): number | null {
   const id = Number(req.params.id);
   return Number.isInteger(id) && id > 0 ? id : null;
