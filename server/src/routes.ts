@@ -10,7 +10,7 @@ function parseId(req: Request): number | null {
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
-// Valide le corps de la requête ; en cas d'erreur, répond 400 et renvoie null.
+// Validates the request body; if an error occurs, returns a 400 status code and null.
 function validateBody(req: Request, res: Response) {
   const result = celestialObjectSchema.safeParse(req.body);
   if (!result.success) {
@@ -26,12 +26,12 @@ function validateBody(req: Request, res: Response) {
   return result.data;
 }
 
-// READ — toute la liste
+// READ - all objects
 router.get("/", (_req, res) => {
   res.json(repository.findAll());
 });
 
-// READ — un seul objet
+// READ — one object
 router.get("/:id", (req, res) => {
   const id = parseId(req);
   if (id === null) {

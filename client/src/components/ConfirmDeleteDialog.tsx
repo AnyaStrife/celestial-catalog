@@ -21,6 +21,7 @@ export function ConfirmDeleteDialog({
   onCancel,
   onConfirm,
 }: Props) {
+  // Only open the dialog when an object has been selected for deletion.
   return (
     <Dialog open={object !== null} onClose={onCancel}>
       <DialogTitle>Supprimer cet objet ?</DialogTitle>

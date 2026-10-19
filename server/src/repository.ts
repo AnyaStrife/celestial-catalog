@@ -1,7 +1,7 @@
 import { db } from "./db";
 import type { CelestialObjectInput } from "./schema";
 
-// Une ligne telle qu'elle est stockée en base
+// Represents a row as it is stored in the database.
 type Row = {
   id: number;
   name: string;
@@ -12,7 +12,7 @@ type Row = {
   created_at: string;
 };
 
-// Convertit une ligne SQL en objet JSON propre pour l'API (camelCase, vrai booléen).
+// Convert database field names to camelCase and SQLite booleans to actual booleans.
 const toCelestialObject = (row: Row) => ({
   id: row.id,
   name: row.name,
@@ -23,7 +23,7 @@ const toCelestialObject = (row: Row) => ({
   createdAt: row.created_at,
 });
 
-// Prépare les valeurs pour SQLite, qui ne connaît pas les booléens.
+// Convert the input to match the database format.
 const toParams = (data: CelestialObjectInput) => ({
   name: data.name,
   type: data.type,
@@ -32,6 +32,7 @@ const toParams = (data: CelestialObjectInput) => ({
   observed: data.observed ? 1 : 0,
 });
 
+// Return all objects, sorted by name.
 export function findAll() {
   const rows = db
     .prepare("SELECT * FROM celestial_objects ORDER BY name")
@@ -39,6 +40,7 @@ export function findAll() {
   return rows.map(toCelestialObject);
 }
 
+// Find an object by its ID, or return undefined if it doesn't exist.
 export function findById(id: number) {
   const row = db
     .prepare("SELECT * FROM celestial_objects WHERE id = ?")
@@ -55,6 +57,7 @@ export function create(data: CelestialObjectInput) {
     `,
     )
     .run(toParams(data));
+  // Return the newly created object with its generated ID and creation date.
   return findById(Number(result.lastInsertRowid))!;
 }
 
@@ -69,6 +72,7 @@ export function update(id: number, data: CelestialObjectInput) {
     `,
     )
     .run({ ...toParams(data), id });
+  // Return the updated object, or undefined if no object matched the ID.
   return result.changes > 0 ? findById(id) : undefined;
 }
 
@@ -76,5 +80,6 @@ export function remove(id: number) {
   const result = db
     .prepare("DELETE FROM celestial_objects WHERE id = ?")
     .run(id);
+  // Return whether an object was actually deleted.
   return result.changes > 0;
 }

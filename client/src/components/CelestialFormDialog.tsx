@@ -32,6 +32,7 @@ export function CelestialFormDialog({
   onClose,
   onSubmit,
 }: Props) {
+  // Initialize the form with the existing object's values when editing, or with default values when creating a new object.
   const [name, setName] = useState(initialValue?.name ?? "");
   const [type, setType] = useState<CelestialType>(initialValue?.type ?? "star");
   const [constellation, setConstellation] = useState(
@@ -43,6 +44,7 @@ export function CelestialFormDialog({
   const [observed, setObserved] = useState(initialValue?.observed ?? false);
   const [submitted, setSubmitted] = useState(false);
 
+  // Check the current values to determine whether the required fields are valid.
   const distanceValue = Number(distance);
   const nameError = name.trim() === "" ? "Le nom est obligatoire" : "";
   const distanceError =
@@ -53,7 +55,11 @@ export function CelestialFormDialog({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
+
+    // Prevent submission if any required field is invalid.
     if (nameError || distanceError) return;
+
+    // Trim text fields and convert the distance to a number before sending the data.
     onSubmit({
       name: name.trim(),
       type,

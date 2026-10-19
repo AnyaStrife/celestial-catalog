@@ -1,11 +1,11 @@
 import Database from "better-sqlite3";
 import path from "node:path";
 
-// Le fichier de base de données est créé à côté du dossier src/ s'il n'existe pas.
+// The database file is created in the src/ folder if it does not already exist.
 const dbPath = path.join(import.meta.dirname, "..", "celestial.db");
 export const db = new Database(dbPath);
 
-// Création de la table au démarrage (ne fait rien si elle existe déjà).
+// Creation of the table at startup (does nothing if it already exists).
 db.exec(`
   CREATE TABLE IF NOT EXISTS celestial_objects (
     id                   INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,7 +18,7 @@ db.exec(`
   )
 `);
 
-// Données d'exemple : la première fois, la table est vide, on la remplit.
+// Example data: the first time, the table is empty, we populate it.
 const { count } = db
   .prepare("SELECT COUNT(*) AS count FROM celestial_objects")
   .get() as { count: number };

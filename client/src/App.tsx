@@ -42,20 +42,24 @@ export default function App() {
   const [toDelete, setToDelete] = useState<CelestialObject | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
 
+  // Reset the selected object when opening the form to create a new one.
   const openCreate = () => {
     setEditing(null);
     setFormOpen(true);
   };
 
+  // Store the selected object and open the form in edit mode.
   const openEdit = (object: CelestialObject) => {
     setEditing(object);
     setFormOpen(true);
   };
 
+  // Convert API errors into messages that can be displayed to the user.
   const showError = (err: unknown) =>
     setFeedback({ severity: "error", message: getErrorMessage(err) });
 
   const handleSubmit = (data: CelestialObjectInput) => {
+    // Close the form and show a success message when the request succeeds.
     const onSuccess = () => {
       setFormOpen(false);
       setFeedback({
@@ -63,6 +67,7 @@ export default function App() {
         message: editing ? "Objet modifié" : "Objet ajouté",
       });
     };
+    // Use the appropriate mutation depending on whether an object is being edited.
     if (editing) {
       updateMutation.mutate(
         { id: editing.id, data },
@@ -75,6 +80,7 @@ export default function App() {
 
   const handleConfirmDelete = () => {
     const target = toDelete;
+    // Stop if no object has been selected for deletion.
     if (!target) return;
     deleteMutation.mutate(target.id, {
       onSuccess: () => {
@@ -107,6 +113,7 @@ export default function App() {
       </AppBar>
 
       <Container maxWidth="lg" sx={{ py: 4 }}>
+        {/* Display the loading state, an error message, or the table. */}
         {isPending && (
           <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
             <CircularProgress />
@@ -137,7 +144,7 @@ export default function App() {
         onCancel={() => setToDelete(null)}
         onConfirm={handleConfirmDelete}
       />
-
+      {/* Show success and error messages in a temporary notification. */}
       <Snackbar
         open={feedback !== null}
         autoHideDuration={4000}

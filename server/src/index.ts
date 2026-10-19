@@ -5,18 +5,18 @@ import { router } from "./routes";
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
 
-// Transforme le corps JSON des requêtes en objet JavaScript
+// Converts the JSON body of requests into a JavaScript object
 app.use(express.json());
 
-// Toutes les routes du CRUD sont préfixées par /api/celestial-objects.
+// All CRUD endpoints are prefixed with /api/celestial-objects.
 app.use("/api/celestial-objects", router);
 
-// Route inconnue → 404 en JSON (au lieu de la page HTML par défaut d'Express).
+// Unknown route → 404 in JSON (instead of the default Express HTML page).
 app.use((_req, res) => {
   res.status(404).json({ error: "Route introuvable" });
 });
 
-// Gestion centralisée des erreurs : aucune erreur ne fait planter le serveur.
+// Centralized error handling : no error causes the server to crash.
 app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof SyntaxError) {
     res.status(400).json({ error: "JSON mal formé" });

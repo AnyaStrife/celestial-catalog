@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 
-// Thème sombre « espace », partagé par l'appli et Storybook.
+// “Space” dark theme, shared by the app and Storybook.
 export const theme = createTheme({
   palette: {
     mode: "dark",

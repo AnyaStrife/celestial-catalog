@@ -25,6 +25,7 @@ type Props = {
 };
 
 export function CelestialTable({ objects, onEdit, onDelete }: Props) {
+  // Display a message instead of an empty table when there are no objects.
   if (objects.length === 0) {
     return (
       <Paper sx={{ p: 6, textAlign: "center" }}>

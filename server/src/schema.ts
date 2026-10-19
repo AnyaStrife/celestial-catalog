@@ -8,7 +8,7 @@ export const CELESTIAL_TYPES = [
   "black_hole",
 ] as const;
 
-// Les règles que doit respecter un objet envoyé par le client.
+// The rules that an object sent by the client must follow.
 export const celestialObjectSchema = z.object({
   name: z
     .string()
@@ -21,5 +21,5 @@ export const celestialObjectSchema = z.object({
   observed: z.boolean().default(false),
 });
 
-// Le type TypeScript est déduit automatiquement du schéma
+// The TypeScript type is automatically inferred from the schema
 export type CelestialObjectInput = z.infer<typeof celestialObjectSchema>;
