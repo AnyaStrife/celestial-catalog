@@ -10,7 +10,8 @@
     "postinstall": "npm install --prefix server && npm install --prefix client",
     "dev": "concurrently -n api,client -c cyan,magenta \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "typecheck": "npm run typecheck --prefix server && npm run build --prefix client",
-    "test": "npm test --prefix client"
+    "test": "npm test --prefix client",
+    "storybook": "npm run storybook --prefix client"
   },
   "devDependencies": {
     "concurrently": "^10.0.6"
