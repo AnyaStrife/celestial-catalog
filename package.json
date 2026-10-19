@@ -1,0 +1,17 @@
+{
+  "name": "celestial-catalog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CRUD fullstack d'objets célestes : API Express + SQLite, client React + MUI",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n api,client -c cyan,magenta \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "typecheck": "npm run typecheck --prefix server && npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
